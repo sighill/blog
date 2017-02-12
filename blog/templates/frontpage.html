@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="ROBOTS" content="NONE" />
+        <title>Buddyblog</title>
+        
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{{style}}" />
+        <link rel="favicon" href="{{STATIC_URL}}/favicon.ico">
+        <link rel="stylesheet" href="/static/blog/colorbox.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/static/blog/colorbox.js"></script>
+        <script>
+            $(document).ready(function(){
+                //Examples of how to assign the Colorbox event to elements
+                $(".imgs").colorbox({rel:'group1', transition:"elastic", maxWidth:"95%", maxHeight:"95%"});
+                $(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+                $(".vimeo").colorbox({iframe:true, innerWidth:500, innerHeight:409});
+                $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+                $(".callbacks").colorbox({
+                    onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+                    onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+                    onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+                    onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+                    onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="navbar">
+            <span><a class="navbar_link" href="">Accueil</a></span>
+        </div>
+        <div id="main_title"><h1>Buddyblog</h1></div>
+        <div id="main_container" class="flex_horiz">
+
+            <div class="frontpage_section_container">
+                <div class="frontpage_section_item">
+                    <h1>Derniers sons</h1>
+                    <a href="/sons"><p>Voir tous les sons</p></a>
+                </div>
+                {% for son in last_medias %}
+                <div class="frontpage_section_item">
+                    <a href="{{son.colorbox_link}}" class="{{son.source_site}}">
+                        <img class="round_img" src="{{son.thumbnail}}">
+                    </a>
+                    <a href="{{son.colorbox_link}}" class="{{son.source_site}}"><h2>{{son.title}}</h2></a>
+                </div>
+                {% endfor %}
+                <div class="frontpage_section_item">
+                    <a href="/sons"><p>Voir tous les sons</p></a>
+                </div>
+            </div>
+
+            <div class="frontpage_section_container">
+                <div class="frontpage_section_item">
+                    <h1>Derniers articles</h1>
+                    <a href="/articles"><p>Voir tous les articles</p></a>
+                </div>
+                {% for post in last_articles %}
+                <div class="frontpage_section_item">
+                    <a href="/article/view/{{post.pk}}"><img class="round_img" src="{{post.media.all.0.thumbnail}}"></a>
+                    <a href="/article/view/{{post.pk}}"><h2>{{post.title}}</h2></a>
+                    <p class="post_info">Posté le {{post.created_date.day}} - {{post.created_date.month}} - {{post.created_date.year}}</p>
+                </div>
+                {% endfor %}
+                <div class="frontpage_section_item">
+                    <a href="/articles"><p>Voir tous les articles</p></a>
+                </div>
+            </div>
+
+            <div class="frontpage_section_container">
+                <div class="frontpage_section_item">
+                    <h1>Dernières galeries</h1>
+                    <a href="/galeries"><p>Voir toutes les galeries</p></a>
+                </div>
+                {% for post in last_galeries %}
+                <div class="frontpage_section_item">
+                    <a href="/galerie/view/{{post.pk}}"><img class="round_img" src="{{post.img_content.all.0.full_img}}"></a>
+                    <a href="/galerie/view/{{post.pk}}"><h2>{{post.title}}</h2></a>
+                </div>
+                {% endfor %}
+                <div class="frontpage_section_item">
+                    <a href="/galeries"><p>Voir toutes les galeries</p></a>
+                </div>
+            </div>
+        </div> <!-- end main_container -->
+    </body>
+
+    <footer>
+        
+    </footer>
+</html>

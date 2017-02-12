@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="ROBOTS" content="NONE" />
+        <title>Buddyblog :: Articles</title>
+
+        <script src="jquery.min.js"></script>
+        <script src="jquery.colorbox-min.js"></script>
+        
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{{style}}" />
+        <link rel="favicon" href="{{STATIC_URL}}/favicon.ico">
+        <link rel="stylesheet" href="/static/blog/colorbox.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/static/blog/colorbox.js"></script>
+        <script>
+            $(document).ready(function(){
+                //Examples of how to assign the Colorbox event to elements
+                $(".imgs").colorbox({rel:'group1', transition:"elastic", maxWidth:"95%", maxHeight:"95%"});
+                $(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+                $(".vimeo").colorbox({iframe:true, innerWidth:500, innerHeight:409});
+                $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+                $(".callbacks").colorbox({
+                    onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+                    onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+                    onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+                    onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+                    onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="navbar">
+            <span><a class="navbar_link" href="/">Accueil</a></span><span><a class="navbar_link" href="">Articles</a></span>
+        </div>
+        <div id="main_title"><h1>Articles</h1></div>
+        <div id="main_container" class="flex_vertic">
+
+            <div id="blogposts_container">
+            {% for post in blogposts %}
+                <div class="post_container">
+                    <a class="youtube" href="https://www.youtube.com/embed/{{post.media.all.0.source_id_string}}">
+                        <img class="round_img absolute" src="{{post.media.all.0.thumbnail}}">
+                        <img class="round_img absolute play" src="/static/blog/video/play_overlay.png">
+                    </a>
+                    <div class="post_text">
+                        <a href="/article/view/{{post.pk}}"><h2>{{post.title}}</h2></a>
+                        <p>{{post.short_desc}} <a class="en_savoir_plus" href="#">En savoir plus</a></p>
+                        <p>{% for tag in post.tags.all %}<a class="music_tag" href="/article/view/{{post.pk}}">{{tag.title}}</a>{% endfor %}</p>
+                        <p class="post_info">Posté le {{post.created_date.day}} - {{post.created_date.month}} - {{post.created_date.year}}</p>
+                    </div>
+                </div> <!-- end post_container -->
+            {% endfor %}
+            </div> <!-- end all_post_container -->
+
+        </div> <!-- end main_container -->
+    </body>
+
+    <footer>
+        
+    </footer>
+</html>
+
+
+
+
+

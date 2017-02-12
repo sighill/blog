@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="ROBOTS" content="NONE" />
+        <title>Buddyblog :: Galeries</title>
+        
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{{style}}" />
+        <link rel="favicon" href="{{STATIC_URL}}/favicon.ico">
+        <link rel="stylesheet" href="/static/blog/colorbox.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/static/blog/colorbox.js"></script>
+        <script>
+            $(document).ready(function(){
+                //Examples of how to assign the Colorbox event to elements
+                $(".imgs").colorbox({rel:'group1', transition:"elastic", maxWidth:"95%", maxHeight:"95%"});
+                $(".youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+                $(".vimeo").colorbox({iframe:true, innerWidth:500, innerHeight:409});
+                $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+                $(".callbacks").colorbox({
+                    onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+                    onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+                    onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+                    onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+                    onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="navbar">
+            <span><a class="navbar_link" href="/">Accueil</a></span><span><a class="navbar_link" href="/galeries">Galeries</a></span>
+        </div>
+        <div id="main_title"><h1>Galeries</h1></div>
+        <div id="main_container" class="flex_horiz">
+            {% for gal in galeries %}
+            <div class="index_item">
+                <a href="/galerie/view/{{gal.pk}}"><img class="round_img" src="{{gal.img_content.all.0.full_img}}"></a>
+                <h3>{{gal.title}}</h3>
+            </div>
+            {% endfor %}
+        </div> <!-- end main_container -->
+    </body>
+
+    <footer>
+        
+    </footer>
+</html>

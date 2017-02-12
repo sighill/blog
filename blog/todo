@@ -1,0 +1,28 @@
+Mettre les embed des vidéos lorsque les images d'articles sont cliqués.
+Regarder pour défilement infini
+Tags != catégories
+Catégories : concert, clip, artiste, album
+
+Browse par catégorie :
+	Un lien vers les index de catégories sur la Landing page
+	Et un lien vers un autre article de la même catégorie
+
+Sections :
+	Page d'accueil
+		Bannière
+		Lien vers le dernier article
+		Lien vers le forum
+		Lien vers la galerie d'images
+	Articles
+		Image à cliquer
+		Caché un cadre média affichable en cadre gris
+		Titre
+		Accroche
+		Corpus d'article
+		Infos sur date et auteur
+		Tags
+	Forum
+		A voir sur l'archi
+	Galerie d'images
+		A voir sur le design
+	Matrice de tags
