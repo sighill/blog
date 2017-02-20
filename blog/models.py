@@ -36,10 +36,14 @@ class Video(models.Model):
     # attributes
     uid= models.AutoField(primary_key = True , db_index = True)
     title= models.CharField(max_length = 255)
-    thumbnail= models.CharField(
-        max_length = 500, blank=True, null=True)
+    thumbnail= models.ImageField(upload_to='static/blog/video', blank=True, null=True)
+    start_video_at= models.CharField(
+        max_length = 50, default=0)
     source_site= models.CharField(max_length = 1000, choices= video_source_choices)
     source_id_string= models.CharField(max_length = 100)
+    tags= models.ManyToManyField('Tag', related_name='video_tags', blank=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    short_desc= models.CharField(max_length = 255, blank=True, null=True)
     # Methods
     def __str__(self):
         return str(self.title)
@@ -47,7 +51,7 @@ class Video(models.Model):
         if self.source_site== 'soundcloud':
             complete_link= 'https://soundcloud.com/{}'.format(self.source_id_string)
         elif self.source_site== 'youtube':
-            complete_link= 'https://www.youtube.com/embed/{}'.format(self.source_id_string)
+            complete_link= 'https://www.youtube.com/embed/{}?t={}s'.format(self.source_id_string, self.start_video_at)
         return complete_link
 
 

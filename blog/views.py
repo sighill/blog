@@ -7,12 +7,12 @@ def FrontPage(request):
     '''
         Landing page for the whole blog.
     '''
-    last_medias= Video.objects.select_related().all()[:3]
+    last_medias= Video.objects.select_related().all().order_by('created_date').reverse()[:3]
     for media in last_medias:
         media.colorbox_link= media.colorbox_link()
     context={
         'style': '/static/blog/style.css',
-        'last_articles': BlogPost.objects.select_related().all()[:3],
+        'last_articles': BlogPost.objects.select_related().all().order_by('created_date').reverse()[:3],
         'last_galeries': Galery.objects.select_related().all()[:3],
         'last_medias': last_medias,
     }
@@ -73,7 +73,7 @@ def SonsIndex(request):
     '''
         Index of sounds.
     '''
-    sons= Video.objects.all()
+    sons= Video.objects.all().order_by('created_date').reverse()
     for son in sons:
         son.colorbox_link= son.colorbox_link()
     context={
